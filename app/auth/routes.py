@@ -62,3 +62,19 @@ def excluir(id):
     db.session.commit()
     flash('Auth excluído.')
     return redirect(url_for('auth.listar'))
+
+
+@auth_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar(id):
+    user = User.query.get_or_404(id)
+    form = LoginForm(obj=user)
+    if form.validate_on_submit():
+        user.username = form.username.data
+        if form.password.data:
+            from werkzeug.security import generate_password_hash
+            user.password = generate_password_hash(form.password.data)
+        db.session.commit()
+        flash('Usuário atualizado com sucesso.')
+        return redirect(url_for('auth.listar'))
+    return render_template('login.html', form=form, titulo='Editar Usuário')
