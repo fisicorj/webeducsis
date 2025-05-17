@@ -10,7 +10,7 @@ inst_bp = Blueprint('instituicoes', __name__, url_prefix='/instituicoes')
 @inst_bp.route('/')
 @login_required
 def listar():
-    lista = Instituicao.query.all()
+    lista = Instituicoe.query.all()
     return render_template('instituicoes/listar.html',
         titulo="Instituições",
         novo_url='instituicoes.novo',
@@ -18,20 +18,6 @@ def listar():
         excluir_url='instituicoes.excluir',
         cabecalhos=['ID', 'Nome', 'Sigla', 'Cidade', 'Tipo', 'Média'],
         campos=['id', 'nome', 'sigla', 'cidade', 'tipo', 'media_minima'],
-        itens=instituicoes)
-            titulo="Instituições",
-            novo_url='instituicoes.novo',
-            editar_url='instituicoes.editar',
-            excluir_url='instituicoes.excluir',
-            cabecalhos=['ID', 'Nome', 'Sigla', 'Cidade', 'Tipo', 'Média'],
-            campos=['id', 'nome', 'sigla', 'cidade', 'tipo', 'media_minima'],
-            itens=instituicoes)
-        titulo="Instituições",
-        novo_url='instituicoes.nova',
-        editar_url='instituicoes.editar',
-        excluir_url='instituicoes.excluir',
-        cabecalhos=["ID", "Nome", "Sigla", "Cidade", "Tipo", "Média"],
-        campos=["id", "nome", "sigla", "cidade", "tipo", "media_minima"],
         itens=lista)
 
 @inst_bp.route('/nova', methods=['GET', 'POST'])

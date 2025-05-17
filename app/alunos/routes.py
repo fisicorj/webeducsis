@@ -19,20 +19,6 @@ def listar():
         cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
         campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
         itens=alunos)
-            titulo="Alunos",
-            novo_url='alunos.novo',
-            editar_url='alunos.editar',
-            excluir_url='alunos.excluir',
-            cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
-            campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
-            itens=alunos)
-        titulo="Alunos",
-        novo_url='alunos.novo' if hasattr(alunos_bp, 'novo') else '',
-        editar_url='alunos.editar',
-        excluir_url='alunos.excluir',
-        cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
-        campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
-        itens=alunos)
 
 @aluno_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
