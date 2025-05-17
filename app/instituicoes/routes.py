@@ -59,7 +59,7 @@ def excluir(id):
     return redirect(url_for('instituicoes.listar'))
 
 
-@instituicoes_bp.route('/novo', methods=['GET', 'POST'])
+@inst_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
 def novo():
     form = InstituicoesForm()
