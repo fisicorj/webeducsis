@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 
@@ -96,13 +95,7 @@ def notas(id_aluno):
 def listar_alunos():
     db = get_db()
     query = '''
-    
     SELECT a.id as id, a.matricula, a.nome, a.email, a.telefone, t.nome AS turma,
-           n.p1, n.p2, n.lt, n.projeto, n.mf
-    FROM alunos a
-    JOIN turmas t ON a.turma_id = t.id
-    LEFT JOIN notas_finais n ON a.id = n.id_aluno
-    
            n.p1, n.p2, n.lt, n.projeto, n.mf
     FROM alunos a
     JOIN turmas t ON a.turma_id = t.id
@@ -110,7 +103,6 @@ def listar_alunos():
     '''
     alunos = db.execute(query).fetchall()
     return render_template('grid_notas.html', alunos=alunos)
-
 
 @app.route('/painel')
 def painel():
@@ -126,8 +118,6 @@ def painel():
                            total_turmas=total_turmas,
                            total_alunos=total_alunos,
                            total_notas=total_notas)
-
-
 
 @app.route('/notas-inline')
 def notas_inline():
@@ -166,8 +156,6 @@ def editar_em_lote():
     db.commit()
     return redirect(url_for('notas_inline'))
 
-
-
 @app.route('/configurar-instituicao/<int:id>', methods=['GET', 'POST'])
 def configurar_instituicao(id):
     if 'user' not in session:
@@ -179,7 +167,6 @@ def configurar_instituicao(id):
         db.commit()
     inst = db.execute('SELECT * FROM instituicoes WHERE id = ?', (id,)).fetchone()
     return render_template('configurar_instituicao.html', instituicao=inst)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
