@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alunos - Controle Turma Manhã</title>
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+    <ul>
+        {% for aluno in alunos %}
+        <li>
+            <a href="{{ url_for('aluno', id_aluno=aluno['id_aluno']) }}">
+                {{ aluno['nome'] }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Aluno</title>
+</head>
+<body>
+    <h1>Aluno: {{ aluno['nome'] }}</h1>
+
+    <h2>Notas Finais</h2>
+    <ul>
+        <li>P1: {{ notas['p1'] }}</li>
+        <li>P2: {{ notas['p2'] }}</li>
+        <li>LT: {{ notas['lt'] }}</li>
+        <li>Projeto: {{ notas['projeto'] }}</li>
+        <li>Média Final: {{ notas['mf'] }}</li>
+    </ul>
+
+    <h2>Provas</h2>
+    <ul>
+        <li>P1: {{ provas['p1'] }} ({{ provas['p1_porc'] }})</li>
+        <li>P2: {{ provas['p2'] }} ({{ provas['p2_porc'] }})</li>
+    </ul>
+
+    <h2>Atividades</h2>
+    <ul>
+        <li>L1: {{ atividades['l1'] }}, L2: {{ atividades['l2'] }}, L3: {{ atividades['l3'] }}</li>
+        <li>L4: {{ atividades['l4'] }}, L5: {{ atividades['l5'] }}, L6: {{ atividades['l6'] }}, L7: {{ atividades['l7'] }}</li>
+        <li>Final: {{ atividades['final'] }}</li>
+    </ul>
+
+    <h2>Projeto</h2>
+    <ul>
+        <li>Nota Projeto: {{ projeto['projeto'] }}</li>
+        <li>Nota Individual: {{ projeto['individual'] }}</li>
+        <li>Nota Final: {{ projeto['nota_final'] }}</li>
+    </ul>
+
+    <p><a href="{{ url_for('index') }}">Voltar para a lista de alunos</a></p>
+</body>
+</html>
