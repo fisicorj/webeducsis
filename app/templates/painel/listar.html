@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ titulo }}</h2>
+    <a href="{{ url_for(novo_url) }}" class="btn btn-primary mb-3">Novo</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                {% for cab in cabecalhos %}
+                    <th>{{ cab }}</th>
+                {% endfor %}
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in itens %}
+            <tr>
+                {% for campo in campos %}
+                    <td>{{ getattr(item, campo) }}</td>
+                {% endfor %}
+                <td>
+                    <a href="{{ url_for(editar_url, id=item.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ url_for(excluir_url, id=item.id) }}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
