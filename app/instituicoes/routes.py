@@ -11,7 +11,14 @@ inst_bp = Blueprint('instituicoes', __name__, url_prefix='/instituicoes')
 @login_required
 def listar():
     lista = Instituicao.query.all()
-        return render_template('instituicoes/listar.html',
+    return render_template('instituicoes/listar.html',
+        titulo="Instituições",
+        novo_url='instituicoes.novo',
+        editar_url='instituicoes.editar',
+        excluir_url='instituicoes.excluir',
+        cabecalhos=['ID', 'Nome', 'Sigla', 'Cidade', 'Tipo', 'Média'],
+        campos=['id', 'nome', 'sigla', 'cidade', 'tipo', 'media_minima'],
+        itens=instituicoes)
             titulo="Instituições",
             novo_url='instituicoes.novo',
             editar_url='instituicoes.editar',
@@ -43,7 +50,6 @@ def nova():
         db.session.commit()
         flash('Instituição cadastrada com sucesso.')
         return redirect(url_for('instituicoes.listar'))
-    return render_template('instituicoes/form.html', form=form)
 
 @inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -59,7 +65,6 @@ def editar(id):
         db.session.commit()
         flash('Instituição atualizada com sucesso.')
         return redirect(url_for('instituicoes.listar'))
-    return render_template('instituicoes/form.html', form=form)
 
 @inst_bp.route('/excluir/<int:id>')
 @login_required

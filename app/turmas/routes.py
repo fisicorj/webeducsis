@@ -11,7 +11,14 @@ turma_bp = Blueprint('turmas', __name__, url_prefix='/turmas')
 @login_required
 def listar():
     turmas = Turma.query.all()
-        return render_template('turmas/listar.html',
+    return render_template('turmas/listar.html',
+        titulo="Turmas",
+        novo_url='turmas.novo',
+        editar_url='turmas.editar',
+        excluir_url='turmas.excluir',
+        cabecalhos=['ID', 'Nome', 'Turno', 'Instituição'],
+        campos=['id', 'nome', 'turno', 'instituicao_id'],
+        itens=turmas)
             titulo="Turmas",
             novo_url='turmas.novo',
             editar_url='turmas.editar',
@@ -42,7 +49,6 @@ def nova():
         db.session.commit()
         flash('Turma cadastrada com sucesso.')
         return redirect(url_for('turmas.listar'))
-    return render_template('turmas/form.html', form=form)
 
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -57,7 +63,6 @@ def editar(id):
         db.session.commit()
         flash('Turma atualizada com sucesso.')
         return redirect(url_for('turmas.listar'))
-    return render_template('turmas/form.html', form=form)
 
 @turma_bp.route('/excluir/<int:id>')
 @login_required

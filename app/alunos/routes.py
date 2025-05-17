@@ -11,7 +11,14 @@ aluno_bp = Blueprint('alunos', __name__, url_prefix='/alunos')
 @login_required
 def listar():
     alunos = Aluno.query.all()
-        return render_template('alunos/listar.html',
+    return render_template('alunos/listar.html',
+        titulo="Alunos",
+        novo_url='alunos.novo',
+        editar_url='alunos.editar',
+        excluir_url='alunos.excluir',
+        cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
+        campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
+        itens=alunos)
             titulo="Alunos",
             novo_url='alunos.novo',
             editar_url='alunos.editar',
@@ -44,7 +51,6 @@ def novo():
         db.session.commit()
         flash('Aluno cadastrado com sucesso.')
         return redirect(url_for('alunos.listar'))
-    return render_template('alunos/form.html', form=form)
 
 @aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -61,7 +67,6 @@ def editar(id):
         db.session.commit()
         flash('Aluno atualizado com sucesso.')
         return redirect(url_for('alunos.listar'))
-    return render_template('alunos/form.html', form=form)
 
 @aluno_bp.route('/excluir/<int:id>')
 @login_required
