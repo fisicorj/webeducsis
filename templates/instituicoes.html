@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Instituicoes{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Cadastro de Instituições</h2>
+    <form method="POST" class="row g-3">
+        <div class="col-md-4"><input name="nome" class="form-control" placeholder="Nome"></div>
+        <div class="col-md-2"><input name="sigla" class="form-control" placeholder="Sigla"></div>
+        <div class="col-md-3"><input name="cidade" class="form-control" placeholder="Cidade"></div>
+        <div class="col-md-2">
+            <select name="tipo" class="form-select">
+                <option value="pública">Pública</option>
+                <option value="privada">Privada</option>
+            </select>
+        </div>
+        <div class="col-md-1"><button type="submit" class="btn btn-success w-100">Salvar</button></div>
+    </form>
+    <table class="table table-bordered table-hover mt-4">
+        <thead class="table-dark"><tr><th>Nome</th><th>Sigla</th><th>Cidade</th><th>Tipo</th></tr></thead>
+        <tbody>
+        {% for i in instituicoes %}
+            <tr><td>{{ i.nome }}</td><td>{{ i.sigla }}</td><td>{{ i.cidade }}</td><td>{{ i.tipo }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
