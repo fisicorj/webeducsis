@@ -11,11 +11,14 @@ login_manager.login_view = 'auth.login'
 def create_app():
 
 
-    @app.context_processor
     def utility_processor():
         return dict(getattr=getattr)
 
     app = Flask(__name__)
+
+    @app.context_processor
+    def utility_processor():
+        return dict(getattr=getattr)
     app.config['SECRET_KEY'] = 'segredo'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///controle.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
