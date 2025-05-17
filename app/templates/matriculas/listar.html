@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Matrículas</h2>
+<a href="{{ url_for('matriculas.nova') }}" class="btn btn-primary mb-3">Nova Matrícula</a>
+<table class="table table-bordered">
+  <thead><tr><th>ID</th><th>Aluno</th><th>Disciplina</th></tr></thead>
+  <tbody>
+    {% for m in matriculas %}
+    <tr>
+        <td>{{ m.id }}</td>
+        <td>{{ m.aluno.nome }}</td>
+        <td>{{ m.disciplina.nome }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

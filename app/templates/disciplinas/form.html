@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ titulo }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.nome.label }} {{ form.nome(class="form-control") }}</div>
+    <div class="mb-3">{{ form.professor.label }} {{ form.professor(class="form-control") }}</div>
+    <div class="mb-3">{{ form.turma_id.label }} {{ form.turma_id(class="form-select") }}</div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
+{% endblock %}
