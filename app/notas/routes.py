@@ -11,7 +11,14 @@ nota_bp = Blueprint('notas', __name__, url_prefix='/notas')
 @login_required
 def listar():
     alunos = Aluno.query.all()
-    return render_template('notas/listar.html', alunos=alunos)
+return render_template('notas/listar.html',
+        titulo="Notas",
+        novo_url='notas.novo' if hasattr(notas_bp, 'novo') else '',
+        editar_url='notas.editar',
+        excluir_url='notas.excluir',
+        cabecalhos=['ID', 'Nome', 'P1', 'P2', 'ATV', 'Trabalho', 'MF'],
+        campos=['aluno.id', 'aluno.nome', 'p1', 'p2', 'lt', 'projeto', 'mf'],
+        itens=alunos)
 
 @nota_bp.route('/<int:id>', methods=['GET', 'POST'])
 @login_required

@@ -11,7 +11,14 @@ aluno_bp = Blueprint('alunos', __name__, url_prefix='/alunos')
 @login_required
 def listar():
     alunos = Aluno.query.all()
-    return render_template('alunos/listar.html', alunos=alunos)
+return render_template('alunos/listar.html',
+        titulo="Alunos",
+        novo_url='alunos.novo' if hasattr(alunos_bp, 'novo') else '',
+        editar_url='alunos.editar',
+        excluir_url='alunos.excluir',
+        cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
+        campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
+        itens=alunos)
 
 @aluno_bp.route('/novo', methods=['GET', 'POST'])
 @login_required

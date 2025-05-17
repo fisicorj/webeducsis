@@ -11,7 +11,14 @@ inst_bp = Blueprint('instituicoes', __name__, url_prefix='/instituicoes')
 @login_required
 def listar():
     lista = Instituicao.query.all()
-    return render_template('instituicoes/listar.html', instituicoes=lista)
+    return render_template('instituicoes/listar.html',
+        titulo="Instituições",
+        novo_url='instituicoes.nova',
+        editar_url='instituicoes.editar',
+        excluir_url='instituicoes.excluir',
+        cabecalhos=["ID", "Nome", "Sigla", "Cidade", "Tipo", "Média"],
+        campos=["id", "nome", "sigla", "cidade", "tipo", "media_minima"],
+        itens=lista)
 
 @inst_bp.route('/nova', methods=['GET', 'POST'])
 @login_required

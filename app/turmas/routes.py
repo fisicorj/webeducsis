@@ -11,7 +11,14 @@ turma_bp = Blueprint('turmas', __name__, url_prefix='/turmas')
 @login_required
 def listar():
     turmas = Turma.query.all()
-    return render_template('turmas/listar.html', turmas=turmas)
+return render_template('turmas/listar.html',
+        titulo="Turmas",
+        novo_url='turmas.novo' if hasattr(turmas_bp, 'novo') else '',
+        editar_url='turmas.editar',
+        excluir_url='turmas.excluir',
+        cabecalhos=['ID', 'Nome', 'Turno', 'Instituição'],
+        campos=['id', 'nome', 'turno', 'instituicao_id'],
+        itens=turmas)
 
 @turma_bp.route('/nova', methods=['GET', 'POST'])
 @login_required
