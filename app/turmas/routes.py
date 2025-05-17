@@ -13,7 +13,7 @@ def listar():
     turmas = Turma.query.all()
     return render_template('turmas/listar.html',
         titulo="Turmas",
-        novo_url='turmas.novo',
+        novo_url='turmas.nova',
         editar_url='turmas.editar',
         excluir_url='turmas.excluir',
         cabecalhos=['ID', 'Nome', 'Turno', 'Instituição'],

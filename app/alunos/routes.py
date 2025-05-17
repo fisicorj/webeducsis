@@ -13,7 +13,7 @@ def listar():
     alunos = Aluno.query.all()
     return render_template('alunos/listar.html',
         titulo="Alunos",
-        novo_url='alunos.novo',
+        novo_url='alunos.nova',
         editar_url='alunos.editar',
         excluir_url='alunos.excluir',
         cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
@@ -37,6 +37,7 @@ def novo():
         db.session.commit()
         flash('Aluno cadastrado com sucesso.')
         return redirect(url_for('alunos.listar'))
+    return render_template('alunos/form.html', form=form)
 
 @aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required

@@ -10,10 +10,10 @@ inst_bp = Blueprint('instituicoes', __name__, url_prefix='/instituicoes')
 @inst_bp.route('/')
 @login_required
 def listar():
-    lista = Instituicoe.query.all()
+    lista = Instituicao.query.all()
     return render_template('instituicoes/listar.html',
         titulo="Instituições",
-        novo_url='instituicoes.novo',
+        novo_url='instituicoes.nova',
         editar_url='instituicoes.editar',
         excluir_url='instituicoes.excluir',
         cabecalhos=['ID', 'Nome', 'Sigla', 'Cidade', 'Tipo', 'Média'],
