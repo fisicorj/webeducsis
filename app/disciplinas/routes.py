@@ -37,7 +37,7 @@ def editar_disciplina(id):
     return render_template('disciplinas/form.html', form=form, titulo="Editar Disciplina")
 
 
-@disciplinas_bp.route('/novo', methods=['GET', 'POST'])
+@disciplina_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
 def novo():
     form = DisciplinasForm()
@@ -51,7 +51,7 @@ def novo():
     return render_template('disciplinas/form.html', form=form, titulo='Novo Disciplinas')
 
 
-@disciplinas_bp.route('/excluir/<int:id>')
+@disciplina_bp.route('/excluir/<int:id>')
 @login_required
 def excluir(id):
     obj = Disciplinas.query.get_or_404(id)

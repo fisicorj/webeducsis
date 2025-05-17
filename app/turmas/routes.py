@@ -58,7 +58,7 @@ def excluir(id):
     return redirect(url_for('turmas.listar'))
 
 
-@turmas_bp.route('/novo', methods=['GET', 'POST'])
+@turma_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
 def novo():
     form = TurmasForm()

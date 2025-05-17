@@ -26,7 +26,7 @@ def nova():
     return render_template('matriculas/form.html', form=form, titulo="Nova Matrícula")
 
 
-@matriculas_bp.route('/novo', methods=['GET', 'POST'])
+@matricula_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
 def novo():
     form = MatriculasForm()
@@ -40,7 +40,7 @@ def novo():
     return render_template('matriculas/form.html', form=form, titulo='Novo Matriculas')
 
 
-@matriculas_bp.route('/excluir/<int:id>')
+@matricula_bp.route('/excluir/<int:id>')
 @login_required
 def excluir(id):
     obj = Matriculas.query.get_or_404(id)

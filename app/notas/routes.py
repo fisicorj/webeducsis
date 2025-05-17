@@ -63,7 +63,7 @@ def atualizar():
     return redirect(url_for('notas.listar'))
 
 
-@notas_bp.route('/novo', methods=['GET', 'POST'])
+@nota_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
 def novo():
     form = NotasForm()
@@ -77,7 +77,7 @@ def novo():
     return render_template('notas/form.html', form=form, titulo='Novo Notas')
 
 
-@notas_bp.route('/excluir/<int:id>')
+@nota_bp.route('/excluir/<int:id>')
 @login_required
 def excluir(id):
     obj = Notas.query.get_or_404(id)
