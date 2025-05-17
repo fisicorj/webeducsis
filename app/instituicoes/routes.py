@@ -40,18 +40,16 @@ def nova():
 
 @inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
+@inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
 def editar(id):
     inst = Instituicao.query.get_or_404(id)
     form = InstituicaoForm(obj=inst)
     if form.validate_on_submit():
-        inst.nome = form.nome.data
-        inst.sigla = form.sigla.data
-        inst.cidade = form.cidade.data
-        inst.tipo = form.tipo.data
-        inst.media_minima = form.media_minima.data
+        form.populate_obj(inst)
         db.session.commit()
-        flash('Instituição atualizada com sucesso.')
         return redirect(url_for('instituicoes.listar'))
+    return render_template('instituicoes/form.html', form=form, titulo='Editar Instituição')
 
 @inst_bp.route('/excluir/<int:id>')
 @login_required

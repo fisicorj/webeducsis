@@ -39,17 +39,16 @@ def nova():
 
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
+@turmas_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
 def editar(id):
-    t = Turma.query.get_or_404(id)
-    form = TurmaForm(obj=t)
-    form.instituicao_id.choices = [(i.id, i.nome) for i in Instituicao.query.all()]
+    turma = Turma.query.get_or_404(id)
+    form = TurmaForm(obj=turma)
     if form.validate_on_submit():
-        t.nome = form.nome.data
-        t.turno = form.turno.data
-        t.instituicao_id = form.instituicao_id.data
+        form.populate_obj(turma)
         db.session.commit()
-        flash('Turma atualizada com sucesso.')
         return redirect(url_for('turmas.listar'))
+    return render_template('turmas/form.html', form=form, titulo='Editar Turma')
 
 @turma_bp.route('/excluir/<int:id>')
 @login_required

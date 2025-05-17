@@ -1,25 +1,34 @@
-
 {% extends 'base.html' %}
-{% block title %}Listagem{% endblock %}
 {% block content %}
 <h2>{{ titulo }}</h2>
-<table class="table table-bordered table-hover">
-<thead class="table-dark"><tr>
-{% for cab in cabecalhos %}<th>{{ cab }}</th>{% endfor %}
-<th>Ações</th>
-</tr></thead>
-<tbody>
-{% for item in itens %}
-<tr>
-{% for campo in campos %}
-<td>{{ getattr(item, campo) }}</td>
-{% endfor %}
-<td>
-  <a href="{{ url_for(editar_url, id=item.id) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-  <a href="{{ url_for(excluir_url, id=item.id) }}" class="btn btn-sm btn-outline-danger">Excluir</a>
-</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+
+<form method="POST" action="{{ url_for('notas.atualizar') }}">
+  <table class="table table-bordered table-striped table-sm">
+    <thead class="table-light">
+      <tr>
+        {% for cab in cabecalhos %}
+          <th>{{ cab }}</th>
+        {% endfor %}
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in itens %}
+        <tr>
+          {% for campo in campos %}
+            {% if campo in ['p1', 'p2', 'lt', 'projeto'] %}
+              <td><input type="number" name="{{ campo }}_{{ item['id'] }}" value="{{ item[campo] }}" step="0.1" class="form-control form-control-sm" required></td>
+            {% else %}
+              <td>{{ item[campo] }}</td>
+            {% endif %}
+          {% endfor %}
+          <td>
+            <input type="checkbox" name="atualizar_ids" value="{{ item['id'] }}">
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-success">Salvar Alterações</button>
+</form>
 {% endblock %}

@@ -41,19 +41,16 @@ def novo():
 
 @aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
+@alunos_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
 def editar(id):
-    a = Aluno.query.get_or_404(id)
-    form = AlunoForm(obj=a)
-    form.turma_id.choices = [(t.id, t.nome) for t in Turma.query.all()]
+    aluno = Aluno.query.get_or_404(id)
+    form = AlunoForm(obj=aluno)
     if form.validate_on_submit():
-        a.matricula = form.matricula.data
-        a.nome = form.nome.data
-        a.email = form.email.data
-        a.telefone = form.telefone.data
-        a.turma_id = form.turma_id.data
+        form.populate_obj(aluno)
         db.session.commit()
-        flash('Aluno atualizado com sucesso.')
         return redirect(url_for('alunos.listar'))
+    return render_template('alunos/form.html', form=form, titulo='Editar Aluno')
 
 @aluno_bp.route('/excluir/<int:id>')
 @login_required
