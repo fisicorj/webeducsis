@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alunos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Cadastro de Alunos</h2>
+    <form method="POST" class="row g-3">
+        <div class="col-md-2"><input name="matricula" class="form-control" placeholder="Matrícula"></div>
+        <div class="col-md-3"><input name="nome" class="form-control" placeholder="Nome"></div>
+        <div class="col-md-3"><input name="email" class="form-control" placeholder="E-mail"></div>
+        <div class="col-md-2"><input name="telefone" class="form-control" placeholder="Telefone"></div>
+        <div class="col-md-1">
+            <select name="turma_id" class="form-select">
+                {% for t in turmas %}
+                    <option value="{{ t.id }}">{{ t.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1"><button type="submit" class="btn btn-success w-100">Salvar</button></div>
+    </form>
+    <table class="table table-bordered table-hover mt-4">
+        <thead class="table-dark"><tr><th>Matrícula</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Turma</th></tr></thead>
+        <tbody>
+        {% for a in alunos %}
+            <tr><td>{{ a.matricula }}</td><td>{{ a.nome }}</td><td>{{ a.email }}</td><td>{{ a.telefone }}</td><td>{{ a.turma_nome }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
