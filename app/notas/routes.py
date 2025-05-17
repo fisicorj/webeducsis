@@ -13,7 +13,7 @@ nota_bp = Blueprint('notas', __name__, url_prefix='/notas')
 @login_required
 @nota_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-def editar(id):
+def editar_nota(id):
     nota = Nota.query.get_or_404(id)
     form = NotaForm(obj=nota)
     if form.validate_on_submit():

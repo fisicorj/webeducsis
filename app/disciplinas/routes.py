@@ -26,7 +26,7 @@ def nova():
 
 @disciplina_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-def editar(id):
+def editar_disciplina(id):
     disc = Disciplina.query.get_or_404(id)
     form = DisciplinaForm(obj=disc)
     form.turma_id.choices = [(t.id, t.nome) for t in Turma.query.all()]

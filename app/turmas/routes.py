@@ -41,7 +41,7 @@ def nova():
 @login_required
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-def editar(id):
+def editar_turma(id):
     turma = Turma.query.get_or_404(id)
     form = TurmaForm(obj=turma)
     if form.validate_on_submit():
