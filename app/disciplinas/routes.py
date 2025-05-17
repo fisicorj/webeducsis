@@ -35,3 +35,27 @@ def editar_disciplina(id):
         db.session.commit()
         return redirect(url_for('disciplinas.listar'))
     return render_template('disciplinas/form.html', form=form, titulo="Editar Disciplina")
+
+
+@disciplinas_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = DisciplinasForm()
+    if form.validate_on_submit():
+        novo_obj = Disciplinas()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Disciplinas cadastrado com sucesso.')
+        return redirect(url_for('disciplinas.listar'))
+    return render_template('disciplinas/form.html', form=form, titulo='Novo Disciplinas')
+
+
+@disciplinas_bp.route('/excluir/<int:id>')
+@login_required
+def excluir(id):
+    obj = Disciplinas.query.get_or_404(id)
+    db.session.delete(obj)
+    db.session.commit()
+    flash('Disciplinas excluído.')
+    return redirect(url_for('disciplinas.listar'))

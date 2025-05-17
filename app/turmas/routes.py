@@ -56,3 +56,17 @@ def excluir(id):
     db.session.commit()
     flash('Turma excluída.')
     return redirect(url_for('turmas.listar'))
+
+
+@turmas_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = TurmasForm()
+    if form.validate_on_submit():
+        novo_obj = Turmas()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Turmas cadastrado com sucesso.')
+        return redirect(url_for('turmas.listar'))
+    return render_template('turmas/form.html', form=form, titulo='Novo Turmas')

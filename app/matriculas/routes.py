@@ -24,3 +24,27 @@ def nova():
         db.session.commit()
         return redirect(url_for('matriculas.listar'))
     return render_template('matriculas/form.html', form=form, titulo="Nova Matrícula")
+
+
+@matriculas_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = MatriculasForm()
+    if form.validate_on_submit():
+        novo_obj = Matriculas()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Matriculas cadastrado com sucesso.')
+        return redirect(url_for('matriculas.listar'))
+    return render_template('matriculas/form.html', form=form, titulo='Novo Matriculas')
+
+
+@matriculas_bp.route('/excluir/<int:id>')
+@login_required
+def excluir(id):
+    obj = Matriculas.query.get_or_404(id)
+    db.session.delete(obj)
+    db.session.commit()
+    flash('Matriculas excluído.')
+    return redirect(url_for('matriculas.listar'))

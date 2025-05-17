@@ -61,3 +61,27 @@ def atualizar():
             continue
     db.session.commit()
     return redirect(url_for('notas.listar'))
+
+
+@notas_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = NotasForm()
+    if form.validate_on_submit():
+        novo_obj = Notas()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Notas cadastrado com sucesso.')
+        return redirect(url_for('notas.listar'))
+    return render_template('notas/form.html', form=form, titulo='Novo Notas')
+
+
+@notas_bp.route('/excluir/<int:id>')
+@login_required
+def excluir(id):
+    obj = Notas.query.get_or_404(id)
+    db.session.delete(obj)
+    db.session.commit()
+    flash('Notas excluído.')
+    return redirect(url_for('notas.listar'))

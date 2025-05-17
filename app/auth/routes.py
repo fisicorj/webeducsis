@@ -24,3 +24,41 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+
+@auth_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = AuthForm()
+    if form.validate_on_submit():
+        novo_obj = Auth()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Auth cadastrado com sucesso.')
+        return redirect(url_for('auth.listar'))
+    return render_template('auth/form.html', form=form, titulo='Novo Auth')
+
+
+@auth_bp.route('/')
+@login_required
+def listar():
+    itens = Auth.query.all()
+    return render_template('auth/listar.html',
+        titulo="Auth",
+        novo_url='auth.novo',
+        editar_url='auth.editar',
+        excluir_url='auth.excluir',
+        cabecalhos=['ID'],
+        campos=['id'],
+        itens=itens)
+
+
+@auth_bp.route('/excluir/<int:id>')
+@login_required
+def excluir(id):
+    obj = Auth.query.get_or_404(id)
+    db.session.delete(obj)
+    db.session.commit()
+    flash('Auth excluído.')
+    return redirect(url_for('auth.listar'))

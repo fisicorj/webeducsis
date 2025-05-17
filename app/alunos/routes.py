@@ -40,3 +40,21 @@ def listar():
         cabecalhos=['ID', 'Nome', 'E-mail', 'Turma'],
         campos=['id', 'nome', 'email', 'turma_id'],
         itens=alunos)
+
+
+@aluno_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = AlunoForm()
+    form.turma_id.choices = [(t.id, t.nome) for t in Turma.query.all()]
+    if form.validate_on_submit():
+        aluno = Aluno(
+            nome=form.nome.data,
+            email=form.email.data,
+            turma_id=form.turma_id.data
+        )
+        db.session.add(aluno)
+        db.session.commit()
+        flash('Aluno cadastrado com sucesso.')
+        return redirect(url_for('alunos.listar'))
+    return render_template('alunos/form.html', form=form, titulo='Novo Aluno')

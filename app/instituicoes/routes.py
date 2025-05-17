@@ -57,3 +57,17 @@ def excluir(id):
     db.session.commit()
     flash('Instituição excluída.')
     return redirect(url_for('instituicoes.listar'))
+
+
+@instituicoes_bp.route('/novo', methods=['GET', 'POST'])
+@login_required
+def novo():
+    form = InstituicoesForm()
+    if form.validate_on_submit():
+        novo_obj = Instituicoes()
+        form.populate_obj(novo_obj)
+        db.session.add(novo_obj)
+        db.session.commit()
+        flash('Instituicoes cadastrado com sucesso.')
+        return redirect(url_for('instituicoes.listar'))
+    return render_template('instituicoes/form.html', form=form, titulo='Novo Instituicoes')
