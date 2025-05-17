@@ -1,0 +1,10 @@
+
+<h2>Editar Notas de {{ aluno['nome'] }}</h2>
+<form method="POST">
+    P1: <input name="p1" value="{{ notas['p1'] if notas else '' }}"><br>
+    P2: <input name="p2" value="{{ notas['p2'] if notas else '' }}"><br>
+    LT: <input name="lt" value="{{ notas['lt'] if notas else '' }}"><br>
+    Projeto: <input name="projeto" value="{{ notas['projeto'] if notas else '' }}"><br>
+    MF: <input name="mf" value="{{ notas['mf'] if notas else '' }}"><br>
+    <input type="submit" value="Salvar">
+</form>
