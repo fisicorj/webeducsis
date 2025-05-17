@@ -105,5 +105,22 @@ def listar_alunos():
     alunos = db.execute(query).fetchall()
     return render_template('grid_notas.html', alunos=alunos)
 
+
+@app.route('/painel')
+def painel():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    db = get_db()
+    total_instituicoes = db.execute('SELECT COUNT(*) FROM instituicoes').fetchone()[0]
+    total_turmas = db.execute('SELECT COUNT(*) FROM turmas').fetchone()[0]
+    total_alunos = db.execute('SELECT COUNT(*) FROM alunos').fetchone()[0]
+    total_notas = db.execute('SELECT COUNT(*) FROM notas_finais').fetchone()[0]
+    return render_template('painel.html', 
+                           total_instituicoes=total_instituicoes,
+                           total_turmas=total_turmas,
+                           total_alunos=total_alunos,
+                           total_notas=total_notas)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
