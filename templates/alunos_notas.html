@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alunos e Notas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Alunos e Notas</h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger mb-3">Sair</a>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Matrícula</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Turma</th>
+                <th>P1</th><th>P2</th><th>ATV</th><th>Trabalho</th><th>Média Final</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in alunos %}
+            <tr>
+                <td>{{ a['matricula'] }}</td>
+                <td>{{ a['nome'] }}</td>
+                <td>{{ a['email'] }}</td>
+                <td>{{ a['telefone'] }}</td>
+                <td>{{ a['turma'] }}</td>
+                <td>{{ a['p1'] or '-' }}</td>
+                <td>{{ a['p2'] or '-' }}</td>
+                <td>{{ a['lt'] or '-' }}</td>
+                <td>{{ a['projeto'] or '-' }}</td>
+                <td><strong>{{ a['mf'] or '-' }}</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
