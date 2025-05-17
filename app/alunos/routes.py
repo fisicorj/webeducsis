@@ -41,7 +41,7 @@ def novo():
 
 @aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-@alunos_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar(id):
     aluno = Aluno.query.get_or_404(id)

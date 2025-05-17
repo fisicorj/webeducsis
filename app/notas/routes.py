@@ -11,7 +11,7 @@ nota_bp = Blueprint('notas', __name__, url_prefix='/notas')
 @login_required
 @nota_bp.route('/<int:id>', methods=['GET', 'POST'])
 @login_required
-@notas_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@nota_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar(id):
     nota = Nota.query.get_or_404(id)
@@ -23,7 +23,7 @@ def editar(id):
         return redirect(url_for('notas.listar'))
     return render_template('notas/form.html', form=form, titulo='Editar Nota')
 
-@notas_bp.route('/')
+@nota_bp.route('/')
 @login_required
 def listar():
     alunos = Aluno.query.all()
@@ -47,7 +47,7 @@ def listar():
         itens=itens)
 
 
-@notas_bp.route('/atualizar', methods=['POST'])
+@nota_bp.route('/atualizar', methods=['POST'])
 @login_required
 def atualizar():
     ids = request.form.getlist('atualizar_ids')
