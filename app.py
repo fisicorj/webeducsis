@@ -96,7 +96,13 @@ def notas(id_aluno):
 def listar_alunos():
     db = get_db()
     query = '''
-    SELECT a.matricula, a.nome, a.email, a.telefone, t.nome AS turma,
+    
+    SELECT a.id as id, a.matricula, a.nome, a.email, a.telefone, t.nome AS turma,
+           n.p1, n.p2, n.lt, n.projeto, n.mf
+    FROM alunos a
+    JOIN turmas t ON a.turma_id = t.id
+    LEFT JOIN notas_finais n ON a.id = n.id_aluno
+    
            n.p1, n.p2, n.lt, n.projeto, n.mf
     FROM alunos a
     JOIN turmas t ON a.turma_id = t.id
