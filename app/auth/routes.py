@@ -43,7 +43,7 @@ def novo():
 @auth_bp.route('/')
 @login_required
 def listar():
-    itens = Auth.query.all()
+    itens = User.query.all()
     return render_template('auth/listar.html',
         titulo="Auth",
         novo_url='auth.novo',
