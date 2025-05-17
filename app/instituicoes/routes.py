@@ -40,8 +40,6 @@ def nova():
 
 @inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-@inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
-@login_required
 def editar_instituicao_view(id):
     inst = Instituicao.query.get_or_404(id)
     form = InstituicaoForm(obj=inst)
