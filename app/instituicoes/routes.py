@@ -71,3 +71,29 @@ def novo():
         flash('Instituicoes cadastrado com sucesso.')
         return redirect(url_for('instituicoes.listar'))
     return render_template('instituicoes/form.html', form=form, titulo='Novo Instituicoes')
+
+
+@inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar(id):
+    inst = Instituicao.query.get_or_404(id)
+    form = InstituicaoForm(obj=inst)
+    if form.validate_on_submit():
+        form.populate_obj(inst)
+        db.session.commit()
+        flash('Instituição atualizada com sucesso.')
+        return redirect(url_for('instituicoes.listar'))
+    return render_template('instituicoes/form.html', form=form, titulo='Editar Instituição')
+
+
+@inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar(id):
+    inst = Instituicao.query.get_or_404(id)
+    form = InstituicaoForm(obj=inst)
+    if form.validate_on_submit():
+        form.populate_obj(inst)
+        db.session.commit()
+        flash('Instituição atualizada com sucesso.')
+        return redirect(url_for('instituicoes.listar'))
+    return render_template('instituicoes/form.html', form=form, titulo='Editar Instituição')

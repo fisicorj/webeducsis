@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Painel Administrativo</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-bg-primary mb-3">
+                <div class="card-header">Alunos</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ total_alunos }}</h5>
+                    <p class="card-text">Total de alunos cadastrados.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-bg-success mb-3">
+                <div class="card-header">Turmas</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ total_turmas }}</h5>
+                    <p class="card-text">Total de turmas registradas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-bg-warning mb-3">
+                <div class="card-header">Instituições</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ total_instituicoes }}</h5>
+                    <p class="card-text">Total de instituições ativas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

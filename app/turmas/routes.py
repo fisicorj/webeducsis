@@ -70,3 +70,16 @@ def novo():
         flash('Turmas cadastrado com sucesso.')
         return redirect(url_for('turmas.listar'))
     return render_template('turmas/form.html', form=form, titulo='Novo Turmas')
+
+
+@turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar(id):
+    turma = Turma.query.get_or_404(id)
+    form = TurmaForm(obj=turma)
+    if form.validate_on_submit():
+        form.populate_obj(turma)
+        db.session.commit()
+        flash('Turma atualizada com sucesso.')
+        return redirect(url_for('turmas.listar'))
+    return render_template('turmas/form.html', form=form, titulo='Editar Turma')

@@ -11,7 +11,7 @@
         <td>{{ d.nome }}</td>
         <td>{{ d.professor }}</td>
         <td>{{ d.turma.nome }}</td>
-        <td><a href="{{ url_for('disciplinas.editar', id=d.id) }}" class="btn btn-sm btn-warning">Editar</a></td>
+        <td><a href="{{ url_for('disciplinas.editar', id=d.id) }}" class="btn btn-sm btn-warning">Editar</a> <a href="{{ url_for(excluir_url, id=item.id) }}" class="btn btn-sm btn-outline-danger">Excluir</a> </td>
       </tr>
     {% endfor %}
   </tbody>
