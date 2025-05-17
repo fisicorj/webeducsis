@@ -35,6 +35,7 @@ def nova():
         db.session.commit()
         flash('Turma cadastrada com sucesso.')
         return redirect(url_for('turmas.listar'))
+    return render_template('turmas/form.html', form=form)
 
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required

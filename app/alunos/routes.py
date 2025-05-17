@@ -13,7 +13,7 @@ def listar():
     alunos = Aluno.query.all()
     return render_template('alunos/listar.html',
         titulo="Alunos",
-        novo_url='alunos.nova',
+        novo_url='alunos.novo',
         editar_url='alunos.editar',
         excluir_url='alunos.excluir',
         cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],

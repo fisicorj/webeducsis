@@ -36,6 +36,7 @@ def nova():
         db.session.commit()
         flash('Instituição cadastrada com sucesso.')
         return redirect(url_for('instituicoes.listar'))
+    return render_template('instituicoes/form.html', form=form)
 
 @inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
