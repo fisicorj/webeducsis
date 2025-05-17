@@ -7,40 +7,6 @@ from app.forms import AlunoForm
 
 aluno_bp = Blueprint('alunos', __name__, url_prefix='/alunos')
 
-@aluno_bp.route('/')
-@login_required
-def listar():
-    alunos = Aluno.query.all()
-    return render_template('alunos/listar.html',
-        titulo="Alunos",
-        novo_url='alunos.novo',
-        editar_url='alunos.editar',
-        excluir_url='alunos.excluir',
-        cabecalhos=['ID', 'Matrícula', 'Nome', 'Email', 'Telefone', 'Turma'],
-        campos=['id', 'matricula', 'nome', 'email', 'telefone', 'turma_id'],
-        itens=alunos)
-
-@aluno_bp.route('/novo', methods=['GET', 'POST'])
-@login_required
-def novo():
-    form = AlunoForm()
-    form.turma_id.choices = [(t.id, t.nome) for t in Turma.query.all()]
-    if form.validate_on_submit():
-        a = Aluno(
-            matricula=form.matricula.data,
-            nome=form.nome.data,
-            email=form.email.data,
-            telefone=form.telefone.data,
-            turma_id=form.turma_id.data
-        )
-        db.session.add(a)
-        db.session.commit()
-        flash('Aluno cadastrado com sucesso.')
-        return redirect(url_for('alunos.listar'))
-    return render_template('alunos/form.html', form=form)
-
-@aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
-@login_required
 @aluno_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_aluno(id):

@@ -7,10 +7,6 @@ from app.forms import NotaForm
 
 nota_bp = Blueprint('notas', __name__, url_prefix='/notas')
 
-@nota_bp.route('/')
-@login_required
-@nota_bp.route('/<int:id>', methods=['GET', 'POST'])
-@login_required
 @nota_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_nota(id):
