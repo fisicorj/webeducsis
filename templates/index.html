@@ -1,7 +1,0 @@
-<h2>Alunos</h2>
-<a href="/logout">Sair</a>
-<ul>
-{% for aluno in alunos %}
-<li>{{ aluno.nome }} - <a href="{{ url_for('editar', id=aluno.id_aluno) }}">Editar Notas</a></li>
-{% endfor %}
-</ul>

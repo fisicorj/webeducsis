@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+{% block title %}Formulário{% endblock %}
+{% block content %}
+<h2>{{ titulo }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.type != 'CSRFToken' and field.name != 'submit' %}
+        <div class="mb-3">{{ field.label }} {{ field(class="form-control") }}</div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
+{% endblock %}

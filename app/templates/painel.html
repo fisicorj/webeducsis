@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% block title %}Painel{% endblock %}
+{% block content %}
+<h2>Painel Administrativo</h2>
+<div class="row mt-4">
+  <div class="col-md-3"><div class="card text-bg-primary text-center p-3"><h4>Instituições</h4><h2>{{ total_instituicoes }}</h2></div></div>
+  <div class="col-md-3"><div class="card text-bg-success text-center p-3"><h4>Turmas</h4><h2>{{ total_turmas }}</h2></div></div>
+  <div class="col-md-3"><div class="card text-bg-info text-center p-3"><h4>Alunos</h4><h2>{{ total_alunos }}</h2></div></div>
+  <div class="col-md-3"><div class="card text-bg-warning text-center p-3"><h4>Notas</h4><h2>{{ total_notas }}</h2></div></div>
+</div>
+{% endblock %}
