@@ -26,3 +26,17 @@ def excluir(id):
     db.session.commit()
     flash('Aluno excluído.')
     return redirect(url_for('alunos.listar'))
+
+
+@aluno_bp.route('/')
+@login_required
+def listar():
+    alunos = Aluno.query.all()
+    return render_template('alunos/listar.html',
+        titulo="Alunos",
+        novo_url='alunos.novo',
+        editar_url='alunos.editar_aluno',
+        excluir_url='alunos.excluir',
+        cabecalhos=['ID', 'Nome', 'E-mail', 'Turma'],
+        campos=['id', 'nome', 'email', 'turma_id'],
+        itens=alunos)

@@ -8,7 +8,7 @@ from app import db
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/login', methods=['GET', 'POST'], endpoint='auth_bp_login')
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
