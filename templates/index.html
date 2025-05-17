@@ -1,8 +1,7 @@
-
-<h1>Alunos</h1>
-<p><a href="{{ url_for('logout') }}">Sair</a> | <a href="{{ url_for('cadastrar_aluno') }}">Cadastrar Aluno</a> | <a href="{{ url_for('importar_alunos') }}">Importar CSV</a></p>
+<h2>Alunos</h2>
+<a href="/logout">Sair</a>
 <ul>
 {% for aluno in alunos %}
-    <li>{{ aluno['nome'] }} (<a href="{{ url_for('editar_notas', id_aluno=aluno['id_aluno']) }}">Editar Notas</a>)</li>
+<li>{{ aluno.nome }} - <a href="{{ url_for('editar', id=aluno.id_aluno) }}">Editar Notas</a></li>
 {% endfor %}
 </ul>

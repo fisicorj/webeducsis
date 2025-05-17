@@ -1,19 +1,19 @@
-
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-import sqlite3, os
-import pandas as pd
+from flask import Flask, render_template, request, redirect, url_for, session
+import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'super_secret'
-
-DATABASE = 'controle_turma_manha_v2.db'
+app.secret_key = 'segredo'
+DATABASE = 'controle_turma_manha.db'
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.route('/')
+def calcular_mf(p1, p2, atv, trab):
+    return round(p1 * 0.3 + p2 * 0.3 + atv * 0.2 + trab * 0.2, 2)
+
+@app.route('/', methods=['GET'])
 def index():
     if 'user' not in session:
         return redirect(url_for('login'))
@@ -31,7 +31,6 @@ def login():
         if result:
             session['user'] = user
             return redirect(url_for('index'))
-        flash('Credenciais inválidas')
     return render_template('login.html')
 
 @app.route('/logout')
@@ -39,52 +38,21 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/cadastrar-aluno', methods=['GET', 'POST'])
-def cadastrar_aluno():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    if request.method == 'POST':
-        id_aluno = request.form['id_aluno']
-        nome = request.form['nome']
-        db = get_db()
-        db.execute('INSERT INTO alunos (id_aluno, nome) VALUES (?, ?)', (id_aluno, nome))
-        db.commit()
-        return redirect(url_for('index'))
-    return render_template('cadastrar.html')
-
-@app.route('/importar-alunos', methods=['GET', 'POST'])
-def importar_alunos():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    if request.method == 'POST':
-        f = request.files['file']
-        if f:
-            df = pd.read_csv(f)
-            db = get_db()
-            for _, row in df.iterrows():
-                db.execute('INSERT OR IGNORE INTO alunos (id_aluno, nome) VALUES (?, ?)', (row['id_aluno'], row['nome']))
-            db.commit()
-            return redirect(url_for('index'))
-    return render_template('importar.html')
-
-@app.route('/editar-notas/<id_aluno>', methods=['GET', 'POST'])
-def editar_notas(id_aluno):
-    if 'user' not in session:
-        return redirect(url_for('login'))
+@app.route('/editar/<id>', methods=['GET', 'POST'])
+def editar(id):
     db = get_db()
+    aluno = db.execute('SELECT * FROM alunos WHERE id_aluno=?', (id,)).fetchone()
+    nota = db.execute('SELECT * FROM notas_finais WHERE id_aluno=?', (id,)).fetchone()
     if request.method == 'POST':
-        p1 = request.form['p1']
-        p2 = request.form['p2']
-        lt = request.form['lt']
-        projeto = request.form['projeto']
-        mf = request.form['mf']
-        db.execute('REPLACE INTO notas_finais (id_aluno, p1, p2, lt, projeto, mf) VALUES (?, ?, ?, ?, ?, ?)',
-                   (id_aluno, p1, p2, lt, projeto, mf))
+        p1 = float(request.form['p1'])
+        p2 = float(request.form['p2'])
+        atv = float(request.form['lt'])
+        trab = float(request.form['projeto'])
+        mf = calcular_mf(p1, p2, atv, trab)
+        db.execute('REPLACE INTO notas_finais VALUES (?, ?, ?, ?, ?, ?)', (id, p1, p2, atv, trab, mf))
         db.commit()
         return redirect(url_for('index'))
-    notas = db.execute('SELECT * FROM notas_finais WHERE id_aluno = ?', (id_aluno,)).fetchone()
-    aluno = db.execute('SELECT * FROM alunos WHERE id_aluno = ?', (id_aluno,)).fetchone()
-    return render_template('editar.html', aluno=aluno, notas=notas)
+    return render_template('editar.html', aluno=aluno, nota=nota)
 
 if __name__ == '__main__':
     app.run(debug=True)
