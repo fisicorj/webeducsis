@@ -115,4 +115,4 @@ Este projeto é de uso acadêmico e pode ser adaptado para fins educacionais.
 
 ## 👨‍💻 Autor
 
-Sistema desenvolvido por Manoel G. Moraes com suporte da IA (OpenAI) para automação e melhorias estruturais.
+Sistema desenvolvido por Manoel G. Moraes.

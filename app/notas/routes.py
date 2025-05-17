@@ -39,7 +39,9 @@ def listar():
             "projeto": nota.projeto,
             "mf": nota.mf
         })
-        'media_minima': aluno.turma.instituicao.media_minima if aluno.turma and aluno.turma.instituicao else 6.0,
+        aluno_dict = {
+            'media_minima': aluno.turma.instituicao.media_minima if aluno.turma and aluno.turma.instituicao else 6.0
+        }
     return render_template('notas/listar.html',
         titulo="Notas",
         cabecalhos=["ID", "Nome", "P1", "P2", "ATV", "Trabalho", "MF"],
@@ -55,7 +57,6 @@ def atualizar():
         try:
             id = int(id_str)
             nota = Nota.query.join(Aluno).filter(Aluno.id == id).first()
-            nota.p1 = float(request.form.get(f"p1_{id}"))
             nota.p2 = float(request.form.get(f"p2_{id}"))
             nota.lt = float(request.form.get(f"lt_{id}"))
             nota.projeto = float(request.form.get(f"projeto_{id}"))
