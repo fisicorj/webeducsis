@@ -39,7 +39,7 @@ def nova():
 
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-@turmas_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+@turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar(id):
     turma = Turma.query.get_or_404(id)
