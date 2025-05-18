@@ -34,3 +34,25 @@ def novo():
     return render_template('painel/form.html', form=form, titulo='Novo Painel')
 
 
+@painel_bp.route('/')
+@login_required
+def listar():
+    itens = Painel.query.all()
+    return render_template('painel/listar.html',
+        titulo="Painel",
+        novo_url='painel.novo',
+        editar_url='painel.editar',
+        excluir_url='painel.excluir',
+        cabecalhos=['ID'],
+        campos=['id'],
+        itens=itens)
+
+
+@painel_bp.route('/excluir/<int:id>')
+@login_required
+def excluir(id):
+    obj = Painel.query.get_or_404(id)
+    db.session.delete(obj)
+    db.session.commit()
+    flash('Painel excluído.')
+    return redirect(url_for('painel.listar'))
