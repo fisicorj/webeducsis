@@ -23,17 +23,15 @@
     </div>
   </div>
 </nav>
+{% endif %}
 <div class="container mt-4">
-        <div class="alert alert-info">
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-info">{{ message }}</div>
-    {% endfor %}
+        <div class="alert alert-info">
+          {% for message in messages %}
   {% endif %}
 {% endwith %}
-            <div>{{ message }}</div>
         </div>
+      {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
 </div>
