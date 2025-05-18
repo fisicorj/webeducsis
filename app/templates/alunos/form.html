@@ -4,7 +4,7 @@
 {% block content %}
 {% if form.errors %}
 <div class="alert alert-danger mt-3">
-    <ul class="mb-0">
+<ul class="mb-0">
     {% for field, errors in form.errors.items() %}
         {% for error in errors %}
         <li><strong>{{ field }}:</strong> {{ error }}</li>
@@ -16,10 +16,15 @@
 
 <h2>{{ titulo }}</h2>
 <form method="POST">
+<div class="form-group">
+  {{ form.matricula.label(class="form-label") }}
+  {{ form.matricula(class="form-control") }}
+</div>
+
     {{ form.hidden_tag() }}
     {% for field in form if field.type != 'CSRFToken' and field.name != 'submit' %}
         <div class="mb-3">{{ field.label }} {{ field(class="form-control") }}</div>
     {% endfor %}
-    <button type="submit" class="btn btn-success">Salvar</button>
+    <button class="btn btn-success" type="submit">Salvar</button>
 </form>
 {% endblock %}
