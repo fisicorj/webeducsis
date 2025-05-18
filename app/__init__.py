@@ -45,6 +45,6 @@ def create_app():
     app.register_blueprint(turma_bp)
     app.register_blueprint(aluno_bp)
     app.register_blueprint(nota_bp)
-    app.register_blueprint(painel_bp)
+    app.register_blueprint(painel_bp, url_prefix="/")
 
     return app
