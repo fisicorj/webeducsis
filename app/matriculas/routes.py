@@ -33,5 +33,5 @@ def excluir(id):
     obj = Matriculas.query.get_or_404(id)
     db.session.delete(obj)
     db.session.commit()
-    flash('Matriculas excluído.')
+    flash('Matriculas excluído.', 'warning')
     return redirect(url_for('matriculas.listar'))

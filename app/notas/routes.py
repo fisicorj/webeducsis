@@ -72,7 +72,7 @@ def novo():
         form.populate_obj(novo_obj)
         db.session.add(novo_obj)
         db.session.commit()
-        flash('Notas cadastrado com sucesso.')
+        flash('Notas cadastrado com sucesso.', 'success')
         return redirect(url_for('notas.listar'))
     return render_template('notas/form.html', form=form, titulo='Novo Notas')
 
@@ -83,5 +83,5 @@ def excluir(id):
     obj = Notas.query.get_or_404(id)
     db.session.delete(obj)
     db.session.commit()
-    flash('Notas excluído.')
+    flash('Notas excluído.', 'warning')
     return redirect(url_for('notas.listar'))

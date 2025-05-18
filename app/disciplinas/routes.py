@@ -46,7 +46,7 @@ def novo():
         form.populate_obj(novo_obj)
         db.session.add(novo_obj)
         db.session.commit()
-        flash('Disciplinas cadastrado com sucesso.')
+        flash('Disciplinas cadastrado com sucesso.', 'success')
         return redirect(url_for('disciplinas.listar'))
     return render_template('disciplinas/form.html', form=form, titulo='Novo Disciplinas')
 
@@ -57,5 +57,5 @@ def excluir(id):
     obj = Disciplinas.query.get_or_404(id)
     db.session.delete(obj)
     db.session.commit()
-    flash('Disciplinas excluído.')
+    flash('Disciplinas excluído.', 'warning')
     return redirect(url_for('disciplinas.listar'))

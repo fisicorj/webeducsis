@@ -33,7 +33,7 @@ def nova():
         )
         db.session.add(t)
         db.session.commit()
-        flash('Turma cadastrada com sucesso.')
+        flash('Turma cadastrada com sucesso.', 'info')
         return redirect(url_for('turmas.listar'))
     return render_template('turmas/form.html', form=form)
 
@@ -54,7 +54,7 @@ def excluir(id):
     t = Turma.query.get_or_404(id)
     db.session.delete(t)
     db.session.commit()
-    flash('Turma excluída.')
+    flash('Turma excluída.', 'warning')
     return redirect(url_for('turmas.listar'))
 
 
@@ -67,6 +67,6 @@ def novo():
         form.populate_obj(novo_obj)
         db.session.add(novo_obj)
         db.session.commit()
-        flash('Turmas cadastrado com sucesso.')
+        flash('Turmas cadastrado com sucesso.', 'success')
         return redirect(url_for('turmas.listar'))
     return render_template('turmas/form.html', form=form, titulo='Novo Turmas')

@@ -16,7 +16,7 @@
 <td>{{ getattr(item, campo) }}</td>
 {% endfor %}
 <td>
-  <a href="{{ url_for('instituicoes.editar', id=item.id) }}" class="btn btn-sm btn-outline-warning">Editar</a>
+  <a href="{{ url_for('turmas.editar', id=item.id) }}" class="btn btn-sm btn-outline-warning">Editar</a>
   <a href="{{ url_for(excluir_url, id=item.id) }}" class="btn btn-sm btn-outline-danger">Excluir</a>
 </td>
 </tr>

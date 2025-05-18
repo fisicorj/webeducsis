@@ -24,7 +24,7 @@ def excluir(id):
     a = Aluno.query.get_or_404(id)
     db.session.delete(a)
     db.session.commit()
-    flash('Aluno excluído.')
+    flash('Aluno excluído.', 'warning')
     return redirect(url_for('alunos.listar'))
 
 
@@ -55,6 +55,6 @@ def novo():
         )
         db.session.add(aluno)
         db.session.commit()
-        flash('Aluno cadastrado com sucesso.')
+        flash('Aluno cadastrado com sucesso.', 'success')
         return redirect(url_for('alunos.listar'))
     return render_template('alunos/form.html', form=form, titulo='Novo Aluno')

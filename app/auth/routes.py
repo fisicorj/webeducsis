@@ -16,7 +16,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             return redirect(url_for('painel.painel'))
-        flash('Usuário ou senha inválidos')
+        flash('Usuário ou senha inválidos', 'danger')
     return render_template('login.html', form=form)
 
 @auth_bp.route('/logout')
@@ -35,7 +35,7 @@ def novo():
         form.populate_obj(novo_obj)
         db.session.add(novo_obj)
         db.session.commit()
-        flash('Auth cadastrado com sucesso.')
+        flash('Auth cadastrado com sucesso.', 'success')
         return redirect(url_for('painel.painel'))
     return render_template('auth/form.html', form=form, titulo='Novo Auth')
 
@@ -60,7 +60,7 @@ def excluir(id):
     obj = Auth.query.get_or_404(id)
     db.session.delete(obj)
     db.session.commit()
-    flash('Auth excluído.')
+    flash('Auth excluído.', 'warning')
     return redirect(url_for('painel.painel'))
 
 
@@ -75,6 +75,6 @@ def editar(id):
             from werkzeug.security import generate_password_hash
             user.password = generate_password_hash(form.password.data)
         db.session.commit()
-        flash('Usuário atualizado com sucesso.')
+        flash('Usuário atualizado com sucesso.', 'info')
         return redirect(url_for('painel.painel'))
     return render_template('login.html', form=form, titulo='Editar Usuário')

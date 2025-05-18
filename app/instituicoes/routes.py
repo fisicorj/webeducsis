@@ -34,7 +34,7 @@ def nova():
         )
         db.session.add(inst)
         db.session.commit()
-        flash('Instituição cadastrada com sucesso.')
+        flash('Instituição cadastrada com sucesso.', 'info')
         return redirect(url_for('instituicoes.listar'))
     return render_template('instituicoes/form.html', form=form)
 
@@ -55,7 +55,7 @@ def excluir(id):
     inst = Instituicao.query.get_or_404(id)
     db.session.delete(inst)
     db.session.commit()
-    flash('Instituição excluída.')
+    flash('Instituição excluída.', 'warning')
     return redirect(url_for('instituicoes.listar'))
 
 
@@ -68,6 +68,6 @@ def novo():
         form.populate_obj(novo_obj)
         db.session.add(novo_obj)
         db.session.commit()
-        flash('Instituicoes cadastrado com sucesso.')
+        flash('Instituicoes cadastrado com sucesso.', 'success')
         return redirect(url_for('instituicoes.listar'))
     return render_template('instituicoes/form.html', form=form, titulo='Novo Instituicoes')
