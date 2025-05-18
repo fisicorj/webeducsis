@@ -1,5 +1,4 @@
-
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
 from app import db
 from app.models import Instituicao
@@ -34,13 +33,13 @@ def nova():
         )
         db.session.add(inst)
         db.session.commit()
-        flash('Instituição cadastrada com sucesso.', 'info')
+        flash('Instituição cadastrada com sucesso.', 'success')  # Corrigido para 'success'
         return redirect(url_for('instituicoes.listar'))
     return render_template('instituicoes/form.html', form=form)
 
 @inst_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-def editar_instituicao_view(id):
+def editar(id):  # Nome simplificado
     inst = Instituicao.query.get_or_404(id)
     form = InstituicaoForm(obj=inst)
     if form.validate_on_submit():
@@ -57,17 +56,3 @@ def excluir(id):
     db.session.commit()
     flash('Instituição excluída.', 'warning')
     return redirect(url_for('instituicoes.listar'))
-
-
-@inst_bp.route('/novo', methods=['GET', 'POST'])
-@login_required
-def novo():
-    form = InstituicoesForm()
-    if form.validate_on_submit():
-        novo_obj = Instituicoes()
-        form.populate_obj(novo_obj)
-        db.session.add(novo_obj)
-        db.session.commit()
-        flash('Instituicoes cadastrado com sucesso.', 'success')
-        return redirect(url_for('instituicoes.listar'))
-    return render_template('instituicoes/form.html', form=form, titulo='Novo Instituicoes')

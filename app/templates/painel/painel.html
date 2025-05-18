@@ -1,36 +1,69 @@
 {% extends 'base.html' %}
-
+{% block title %}Painel Administrativo{% endblock %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Painel Administrativo</h2>
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card text-bg-primary mb-3">
-                <div class="card-header">Alunos</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ total_alunos }}</h5>
-                    <p class="card-text">Total de alunos cadastrados.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-bg-success mb-3">
-                <div class="card-header">Turmas</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ total_turmas }}</h5>
-                    <p class="card-text">Total de turmas registradas.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-bg-warning mb-3">
-                <div class="card-header">Instituições</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ total_instituicoes }}</h5>
-                    <p class="card-text">Total de instituições ativas.</p>
-                </div>
-            </div>
-        </div>
+
+<h2>Painel Administrativo</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
+  <div class="col">
+    <div class="card text-bg-primary">
+      <div class="card-body">
+        <h5 class="card-title">Instituições</h5>
+        <p class="card-text fs-4">{{ total_instituicoes }}</p>
+      </div>
     </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-success">
+      <div class="card-body">
+        <h5 class="card-title">Turmas</h5>
+        <p class="card-text fs-4">{{ total_turmas }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-warning">
+      <div class="card-body">
+        <h5 class="card-title">Alunos</h5>
+        <p class="card-text fs-4">{{ total_alunos }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-danger">
+      <div class="card-body">
+        <h5 class="card-title">Matrículas</h5>
+        <p class="card-text fs-4">{{ total_matriculas }}</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<h4 class="mt-5">Distribuição de Alunos por Turma</h4>
+<canvas id="alunosPorTurmaChart" height="100"></canvas>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('alunosPorTurmaChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{ labels|safe }},
+      datasets: [{
+        label: 'Alunos por Turma',
+        data: {{ data|safe }},
+        backgroundColor: 'rgba(13, 110, 253, 0.6)',
+        borderColor: 'rgba(13, 110, 253, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
 {% endblock %}

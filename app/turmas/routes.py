@@ -1,5 +1,4 @@
-
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
 from app import db
 from app.models import Turma, Instituicao
@@ -33,18 +32,20 @@ def nova():
         )
         db.session.add(t)
         db.session.commit()
-        flash('Turma cadastrada com sucesso.', 'info')
+        flash('Turma cadastrada com sucesso.', 'success')  # Categoria corrigida
         return redirect(url_for('turmas.listar'))
     return render_template('turmas/form.html', form=form)
 
 @turma_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
-def editar_turma(id):
+def editar(id):  # Nome padronizado
     turma = Turma.query.get_or_404(id)
     form = TurmaForm(obj=turma)
+    form.instituicao_id.choices = [(i.id, i.nome) for i in Instituicao.query.all()]  # Adicionado
     if form.validate_on_submit():
         form.populate_obj(turma)
         db.session.commit()
+        flash('Turma atualizada.', 'success')
         return redirect(url_for('turmas.listar'))
     return render_template('turmas/form.html', form=form, titulo='Editar Turma')
 
@@ -56,17 +57,3 @@ def excluir(id):
     db.session.commit()
     flash('Turma excluída.', 'warning')
     return redirect(url_for('turmas.listar'))
-
-
-@turma_bp.route('/novo', methods=['GET', 'POST'])
-@login_required
-def novo():
-    form = TurmasForm()
-    if form.validate_on_submit():
-        novo_obj = Turmas()
-        form.populate_obj(novo_obj)
-        db.session.add(novo_obj)
-        db.session.commit()
-        flash('Turmas cadastrado com sucesso.', 'success')
-        return redirect(url_for('turmas.listar'))
-    return render_template('turmas/form.html', form=form, titulo='Novo Turmas')

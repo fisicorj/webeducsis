@@ -47,14 +47,19 @@ def listar():
 def novo():
     form = AlunoForm()
     form.turma_id.choices = [(t.id, t.nome) for t in Turma.query.all()]
+    
     if form.validate_on_submit():
+        # Crie o aluno apenas com os dados do formulário
+        # (a matrícula será gerada automaticamente pelo modelo)
         aluno = Aluno(
             nome=form.nome.data,
             email=form.email.data,
+            telefone=form.telefone.data,  # Adicione se existir no formulário
             turma_id=form.turma_id.data
         )
         db.session.add(aluno)
         db.session.commit()
         flash('Aluno cadastrado com sucesso.', 'success')
         return redirect(url_for('alunos.listar'))
+    
     return render_template('alunos/form.html', form=form, titulo='Novo Aluno')

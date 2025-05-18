@@ -8,7 +8,21 @@ class Disciplina(db.Model):
     turma_id = db.Column(db.Integer, db.ForeignKey('turma.id'), nullable=False)
     turma = db.relationship('Turma', backref=db.backref('disciplinas', lazy=True))
 
-
+# No arquivo models.py
+class Aluno(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    matricula = db.Column(
+        db.String(20), 
+        nullable=False, 
+        unique=True, 
+        default=lambda: str(int(datetime.now().timestamp()))  # Geração automática
+    nome = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100))
+    telefone = db.Column(db.String(20))
+    turma_id = db.Column(db.Integer, db.ForeignKey('turma.id'))
+    
+    turma = db.relationship('Turma', back_populates='alunos')
+    
 class Matricula(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     aluno_id = db.Column(db.Integer, db.ForeignKey('aluno.id'), nullable=False)
